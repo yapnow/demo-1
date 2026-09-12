@@ -110,9 +110,9 @@
 
   /* ---------- AI suggestion rotator ---------- */
   const tips = [
-    'Try: <b>“What surprised you most about living there?”</b>',
-    'Try: <b>“What does a perfect weekend in Berlin look like?”</b>',
-    'Try: <b>“What do you miss most about home?”</b>',
+    'Try: <b>“Wahan sabse zyada kya pasand aaya?”</b>',
+    'Try: <b>“Bengaluru mein perfect weekend kaisa hota hai?”</b>',
+    'Try: <b>“Ghar ka khana sabse zyada miss karte ho?”</b>',
   ];
   let ti = 0; const tipBox = $('#ai-rotator'), tipText = $('#ai-text');
   if (!reduce) setInterval(() => {
@@ -124,37 +124,6 @@
   const rows = $$('.rel-row'); let ri = 0;
   function relStep(){ rows.forEach((r,i) => r.classList.toggle('is-on', i <= ri)); ri = (ri + 1) % (rows.length + 1); }
   if (reduce) rows.forEach(r => r.classList.add('is-on')); else { relStep(); setInterval(relStep, 1400); }
-
-  /* ---------- services explorer ---------- */
-  const SERVICES = [
-    {name:'Customer Profile', tag:'Users & preferences', desc:'Keeps track of each user: profile, preferences, history, ratings, score, onboarding and permissions. Every user gets a unique, hashed, production-grade ID.', mods:['AccountCreation','Profile','Face & Voice Verification','Permissions','Consent','Preferences']},
-    {name:'Matchmaking', tag:'Filters & pairing', desc:'Applies your filters, searches the pool of available users and pairs two requests into a conversation ID for the realtime service.', mods:['FiltersHandler','MatchmakingHandler','RecoveryHandler']},
-    {name:'Conversation', tag:'Realtime chat & calls', desc:'Runs live chat and calls, monitors every connection, recovers dropped calls and powers the AI conversation assistant.', mods:['ChatHandler','CallHandler','RecoveryHandler','LogsHandler','AI Recommender & Tracker']},
-    {name:'Payment & Subscription', tag:'Premium, wallet & gifts', desc:'Handles payments, subscriptions and their policies, the wallet used to send gifts, and coupons.', mods:['PaymentGateway','SubscriptionsHandler','PolicyHandler','WalletsHandler','CouponsHandler']},
-    {name:'Notification', tag:'Alerts to the app', desc:'Delivers every kind of notification to the app, from match alerts to connection warnings.', mods:['EventsHandler']},
-    {name:'Customer Support', tag:'Help & ops', desc:'Answers questions with an AI chatbot, manages support tickets and powers the operations dashboard.', mods:['AI Chatbot','TicketsHandler']},
-    {name:'Micro Frontend', tag:'Backend-driven app', desc:'Makes the React Native app backend-driven, so screens and flows can be updated from the server without an app release.', mods:['Template Generation','API Handling']},
-    {name:'Infra', tag:'Infrastructure as code', desc:'Holds the infrastructure code that deploys and scales every other service.', mods:['Infrastructure Code']},
-  ];
-  const grid = $('#svc-grid'), detail = $('#svc-detail');
-  function pick(i){
-    $$('.svc', grid).forEach((b,j) => { b.setAttribute('aria-selected', i === j); b.tabIndex = i === j ? 0 : -1; });
-    const s = SERVICES[i];
-    detail.innerHTML = `<h3>${s.name} Service</h3><p>${s.desc}</p><div class="svc-mods">${s.mods.map(m => `<span>${m}</span>`).join('')}</div>`;
-  }
-  SERVICES.forEach((s,i) => {
-    const b = document.createElement('button');
-    b.className = 'svc'; b.setAttribute('role','tab'); b.innerHTML = `<b>${s.name}</b><span>${s.tag}</span>`;
-    b.addEventListener('click', () => pick(i));
-    b.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
-        const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + SERVICES.length) % SERVICES.length;
-        pick(n); grid.children[n].focus();
-      }
-    });
-    grid.appendChild(b);
-  });
-  pick(0);
 
   /* ---------- waitlist (static demo) ---------- */
   $('#wl-form').addEventListener('submit', e => {
