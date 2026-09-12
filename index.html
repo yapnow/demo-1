@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YapNow — Meet someone new. Talk right now.</title>
+<meta name="description" content="YapNow connects people around the world by language, city, profession and passion — through chat, voice and video. App in development.">
+<meta name="theme-color" content="#0B1020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- YapNow mark (from the brand identity) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="yn-mark" viewBox="0 0 100 100">
+      <path d="M50 60 C 50 60, 30 55, 20 30 C 15 18, 22 8, 35 12 C 45 15, 50 30, 50 60 Z" fill="#C9A063"/>
+      <path d="M50 60 C 50 60, 70 55, 80 30 C 85 18, 78 8, 65 12 C 55 15, 50 30, 50 60 Z" fill="#E3C38A"/>
+      <rect x="44" y="55" width="12" height="36" rx="6" fill="#F5F2EC"/>
+      <circle cx="50" cy="60" r="6" fill="#F5F2EC"/>
+    </symbol>
+    <symbol id="yn-mark-light" viewBox="0 0 100 100">
+      <path d="M50 60 C 50 60, 30 55, 20 30 C 15 18, 22 8, 35 12 C 45 15, 50 30, 50 60 Z" fill="#C9A063"/>
+      <path d="M50 60 C 50 60, 70 55, 80 30 C 85 18, 78 8, 65 12 C 55 15, 50 30, 50 60 Z" fill="#E3C38A"/>
+      <rect x="44" y="55" width="12" height="36" rx="6" fill="#0B1020"/>
+      <circle cx="50" cy="60" r="6" fill="#0B1020"/>
+    </symbol>
+    <symbol id="yn-mark-ink" viewBox="0 0 100 100">
+      <path d="M50 60 C 50 60, 30 55, 20 30 C 15 18, 22 8, 35 12 C 45 15, 50 30, 50 60 Z" fill="#0B1020" opacity=".85"/>
+      <path d="M50 60 C 50 60, 70 55, 80 30 C 85 18, 78 8, 65 12 C 55 15, 50 30, 50 60 Z" fill="#0B1020"/>
+      <rect x="44" y="55" width="12" height="36" rx="6" fill="#0B1020" opacity=".9"/>
+      <circle cx="50" cy="60" r="6" fill="#0B1020" opacity=".8"/>
+    </symbol>
+    <symbol id="yn-mark-white" viewBox="0 0 100 100">
+      <path d="M50 60 C 50 60, 30 55, 20 30 C 15 18, 22 8, 35 12 C 45 15, 50 30, 50 60 Z" fill="#fff" opacity=".95"/>
+      <path d="M50 60 C 50 60, 70 55, 80 30 C 85 18, 78 8, 65 12 C 55 15, 50 30, 50 60 Z" fill="#fff"/>
+      <rect x="44" y="55" width="12" height="36" rx="6" fill="#fff" opacity=".92"/>
+      <circle cx="50" cy="60" r="6" fill="#fff" opacity=".85"/>
+    </symbol>
+    <!-- line icons -->
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V17.5H4A1.5 1.5 0 0 1 2.5 16V7A1.5 1.5 0 0 1 4 5.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-voice" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="9" y="2.5" width="6" height="11.5" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5v4M8.5 21.5h7"/></g></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="2.5" y="6" width="13.5" height="12" rx="2.5"/><path d="M16 10.5l5.5-3v9l-5.5-3z"/></g></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.7 3.9 5.9 3.9 9.5s-1.3 6.8-3.9 9.5c-2.6-2.7-3.9-5.9-3.9-9.5S9.4 5.2 12 2.5z"/></g></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21.5s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+    <symbol id="i-lang" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h11M8.5 3v2M5 5c.6 3.5 3.2 6.4 6.5 7.5M12 5c-.8 4-3.6 7-8 8.5M13 21l4.5-10 4.5 10M14.5 17.5h6"/></g></symbol>
+    <symbol id="i-case" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2.5"/><path d="M8.5 7V5a1.5 1.5 0 0 1 1.5-1.5h4A1.5 1.5 0 0 1 15.5 5v2M2.5 12.5h19"/></g></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.5l2.2 6.3 6.3 2.2-6.3 2.2L12 19.5l-2.2-6.3L3.5 11l6.3-2.2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10v-6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></g></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.8 16a5 5 0 0 1 6.4 0"/><circle cx="12" cy="19.3" r=".6" fill="currentColor"/></g></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="8.5" width="18" height="4.5" rx="1"/><path d="M5 13v7.5h14V13M12 8.5v12M12 8.5S10.5 3.5 8 4.2 7.5 8.5 12 8.5zM12 8.5s1.5-5 4-4.3.5 4.3-4 4.3z"/></g></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13.5" width="4" height="6" rx="1.5"/><rect x="17" y="13.5" width="4" height="6" rx="1.5"/><path d="M19 19.5c0 1.5-2 2-5 2"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="YapNow home">
+      <svg aria-hidden="true"><use href="#yn-mark"/></svg><span>YapNow</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Main">
+      <a href="#connect">Features</a>
+      <a href="#match">Matchmaking</a>
+      <a href="#screens">App preview</a>
+      <a href="#built">How it's built</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+    <a class="btn btn-grad btn-sm nav-cta" href="#waitlist">Join the waitlist</a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ========================= HERO ========================= -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="status-pill"><span class="dot"></span>App in development · Beta coming soon</div>
+      <p class="eyebrow">Where curiosity turns into conversation</p>
+      <h1><span class="h1-a">Meet someone new.</span><span class="h1-b">Talk right now.</span></h1>
+      <p class="lede">YapNow connects you with people around the world who share your language, city, profession or passion — and puts you in a live chat, voice or video conversation in seconds.</p>
+      <div class="hero-actions">
+        <a class="btn btn-grad" href="#waitlist">Join the waitlist</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <ul class="hero-modes" aria-label="Ways to connect">
+        <li><svg><use href="#i-chat"/></svg>Chat <em>Free</em></li>
+        <li><svg><use href="#i-voice"/></svg>Voice <em>Free</em></li>
+        <li><svg><use href="#i-video"/></svg>Video <em class="prem">Premium</em></li>
+      </ul>
+    </div>
+
+    <!-- live demo phone -->
+    <div class="hero-stage">
+      <div class="phone phone-hero" id="demo-phone" aria-label="Animated preview of the YapNow app">
+        <div class="phone-notch"></div>
+        <div class="screen screen-dark">
+          <div class="app-top">
+            <div class="app-brand"><svg><use href="#yn-mark"/></svg>YapNow</div>
+            <div class="app-avatar">Y</div>
+          </div>
+          <div class="app-tabs" role="tablist">
+            <button class="tab is-on" data-mode="chat">Chat</button>
+            <button class="tab" data-mode="call">Call</button>
+            <button class="tab" data-mode="video">Video <svg><use href="#i-crown"/></svg></button>
+          </div>
+
+          <div class="demo-body">
+            <!-- state: idle -->
+            <div class="demo-state is-on" data-state="idle">
+              <p class="demo-hint">Your preferences</p>
+              <div class="chips">
+                <span class="chip"><svg><use href="#i-pin"/></svg>Nearest</span>
+                <span class="chip"><svg><use href="#i-lang"/></svg>English</span>
+                <span class="chip"><svg><use href="#i-case"/></svg>Designer</span>
+                <span class="chip"><svg><use href="#i-spark"/></svg>Music</span>
+              </div>
+              <button class="connect-btn" id="demo-connect"><span class="ring"></span><span class="ring r2"></span><span class="connect-inner"><svg><use href="#yn-mark-ink"/></svg>Connect</span></button>
+              <p class="demo-limit" id="demo-limit">4 of 5 free chats left today</p>
+            </div>
+            <!-- state: searching -->
+            <div class="demo-state" data-state="search">
+              <div class="radar"><span></span><span></span><span></span><div class="radar-core"><svg><use href="#yn-mark-ink"/></svg></div></div>
+              <p class="demo-title">Finding someone for you…</p>
+              <p class="demo-sub">English · Designer · Music · Nearest</p>
+            </div>
+            <!-- state: matched -->
+            <div class="demo-state" data-state="match">
+              <div class="pair">
+                <div class="av av-a">Y</div>
+                <div class="pair-line"></div>
+                <div class="av av-b">AM</div>
+              </div>
+              <p class="demo-title">You matched with Amara</p>
+              <p class="demo-sub">Lisbon · Product designer · Loves jazz</p>
+              <div class="chips chips-center"><span class="chip chip-hot">Music</span><span class="chip chip-hot">Design</span></div>
+            </div>
+            <!-- state: in conversation -->
+            <div class="demo-state" data-state="talk">
+              <div class="talk-head"><div class="av av-b sm">AM</div><div><b>Amara</b><span id="talk-mode">Chat · live</span></div></div>
+              <div class="bubbles">
+                <div class="bubble them">Hi! Your profile says you're into music too 🎧</div>
+                <div class="bubble me">Yes! Mostly indie and a bit of jazz.</div>
+              </div>
+              <div class="ai-tip"><svg><use href="#i-spark"/></svg><span>Try asking: <b>“Who's an artist you'd travel to see live?”</b></span></div>
+            </div>
+          </div>
+
+          <div class="req-status" aria-live="polite">
+            <span class="req-id" id="req-id">req r1</span>
+            <span class="req-state" id="req-state">Ready</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-card fc-1"><svg><use href="#i-globe"/></svg><div><b>Worldwide</b><span>City, state, country or nearest</span></div></div>
+      <div class="float-card fc-2"><svg><use href="#i-shield"/></svg><div><b>Verified people</b><span>Face &amp; voice verification</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= IDEA ========================= -->
+<section class="idea">
+  <div class="wrap idea-grid">
+    <h2 class="idea-quote">Most apps help you scroll past people. <span>YapNow helps you actually talk to them.</span></h2>
+    <div class="idea-points">
+      <p>We're building a place for <b>duplex conversation</b> — real, two-way talk between two people who chose what they care about. Tell us your language, where you are, what you do and what you love. We find someone who fits, and you're talking before the moment passes.</p>
+      <p>Chat and voice are free to start. Video is our premium experience. Each medium has its own matchmaking, tuned to how people talk there.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= THREE WAYS ========================= -->
+<section class="connect" id="connect">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Three ways to connect</p>
+      <h2>Pick how you want to talk.</h2>
+      <p class="sec-sub">Every tab on the home screen has one job: a Connect button that pairs you with someone new, using the preferences you set.</p>
+    </div>
+    <div class="modes">
+      <article class="mode">
+        <div class="mode-top"><div class="mode-ic"><svg><use href="#i-chat"/></svg></div><span class="tier">Freemium</span></div>
+        <h3>Chat</h3>
+        <p>Start light. Text with someone who shares your interests, at your own pace — perfect for breaking the ice across languages and time zones.</p>
+        <ul><li>Free daily chat limit</li><li>Chat-specific matchmaking</li><li>Send gifts from your wallet</li></ul>
+      </article>
+      <article class="mode">
+        <div class="mode-top"><div class="mode-ic"><svg><use href="#i-voice"/></svg></div><span class="tier">Freemium</span></div>
+        <h3>Voice</h3>
+        <p>Hear a real voice. Voice calls keep going in the background, so you can walk, cook or commute while you talk.</p>
+        <ul><li>Free daily call limit</li><li>Voice-specific matchmaking</li><li>Background calling</li></ul>
+      </article>
+      <article class="mode mode-prem">
+        <div class="mode-top"><div class="mode-ic"><svg><use href="#i-video"/></svg></div><span class="tier tier-prem"><svg><use href="#i-crown"/></svg>Premium</span></div>
+        <h3>Video</h3>
+        <p>Face to face, anywhere in the world. Video is fully premium, with its own matchmaking designed for verified, high-quality conversations.</p>
+        <ul><li>Premium subscription</li><li>Video-specific matchmaking</li><li>Priority connection quality</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= MATCHMAKING (interactive) ========================= -->
+<section class="match" id="match">
+  <div class="wrap match-grid">
+    <div>
+      <p class="eyebrow">Matchmaking, your way</p>
+      <h2>You choose who you meet.</h2>
+      <p class="sec-sub">Set your preferences once before you connect. Choose from a defined list of tags, up to a limit, so every match starts with something in common. Try it:</p>
+
+      <div class="builder" id="builder">
+        <fieldset>
+          <legend><svg><use href="#i-pin"/></svg>Location</legend>
+          <div class="seg" data-group="loc">
+            <button class="is-on">Nearest</button><button>City</button><button>State</button><button>Country</button><button>Anywhere</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend><svg><use href="#i-lang"/></svg>Language</legend>
+          <div class="tags" data-group="lang" data-max="2">
+            <button class="is-on">English</button><button>Hindi</button><button>Spanish</button><button>Arabic</button><button>French</button><button>Portuguese</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend><svg><use href="#i-case"/></svg>Profession</legend>
+          <div class="tags" data-group="prof" data-max="2">
+            <button>Engineer</button><button class="is-on">Designer</button><button>Student</button><button>Founder</button><button>Doctor</button><button>Artist</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend><svg><use href="#i-spark"/></svg>Passion <span class="limit" id="passion-limit">1 / 3</span></legend>
+          <div class="tags" data-group="passion" data-max="3">
+            <button class="is-on">Music</button><button>Travel</button><button>Football</button><button>Books</button><button>Startups</button><button>Cooking</button><button>Gaming</button><button>Photography</button>
+          </div>
+          <p class="limit-msg" id="limit-msg" role="status"></p>
+        </fieldset>
+        <fieldset>
+          <legend>Gender preference</legend>
+          <div class="seg" data-group="gender">
+            <button class="is-on">Anyone</button><button>Women</button><button>Men</button>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="summary-wrap">
+      <div class="summary" aria-live="polite">
+        <p class="summary-label">Your match request</p>
+        <div class="summary-line" id="summary"></div>
+        <div class="summary-flow">
+          <div class="flow-step is-on"><span>1</span>Request created</div>
+          <div class="flow-step"><span>2</span>Search the pool</div>
+          <div class="flow-step"><span>3</span>Paired &amp; connected</div>
+        </div>
+        <button class="btn btn-grad btn-block" id="try-match">Find my match</button>
+        <p class="summary-note" id="try-note">Demo only — the app is still in development.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= HOW IT WORKS ========================= -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works</p>
+      <h2>From sign-up to “hello” in four steps.</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="step-n">01</span><h3>Sign up &amp; verify</h3><p>Create your account and verify with a quick face and voice check, so everyone you meet is real.</p></li>
+      <li><span class="step-n">02</span><h3>Set your preferences</h3><p>Pick location, language, profession, passions and gender preference from ready-made tags.</p></li>
+      <li><span class="step-n">03</span><h3>Tap Connect</h3><p>Choose Chat, Call or Video. Matchmaking searches everyone available who fits what you picked.</p></li>
+      <li><span class="step-n">04</span><h3>Start talking</h3><p>You're paired instantly. If your connection drops, YapNow reconnects you automatically.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========================= APP SCREENS ========================= -->
+<section class="screens" id="screens">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">App preview</p>
+      <h2>A first look at the app.</h2>
+      <p class="sec-sub">Early designs from the React Native app we're building now. Details will change as we test with real users.</p>
+    </div>
+  </div>
+  <div class="gallery" id="gallery" tabindex="0" aria-label="App screens, scroll horizontally">
+    <!-- 1 verification -->
+    <figure class="shot">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="screen screen-dark s-verify">
+          <p class="s-step">Step 2 of 4</p>
+          <h4>Verify it's you</h4>
+          <p class="s-sub">A 5-second video selfie with your voice keeps YapNow real.</p>
+          <div class="face-oval"><div class="face-scan"></div><div class="face"><span></span><span></span><i></i></div></div>
+          <p class="s-say">Say: <b>“Hi, I'm ready to yap!”</b></p>
+          <div class="s-progress"><span style="width:62%"></span></div>
+          <button class="s-btn">Hold to record</button>
+        </div>
+      </div>
+      <figcaption>Face &amp; voice verification</figcaption>
+    </figure>
+    <!-- 2 preferences -->
+    <figure class="shot">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="screen screen-light s-pref">
+          <h4>Who do you want to meet?</h4>
+          <p class="s-label">Location</p>
+          <div class="s-seg"><span class="on">Nearest</span><span>City</span><span>Country</span></div>
+          <p class="s-label">Languages</p>
+          <div class="s-tags"><span class="on">English</span><span class="on">Hindi</span><span>Spanish</span></div>
+          <p class="s-label">Passions <em>3 / 3</em></p>
+          <div class="s-tags"><span class="on">Music</span><span>Travel</span><span class="on">Startups</span><span>Books</span><span class="on">Football</span><span>Cooking</span></div>
+          <p class="s-label">Gender</p>
+          <div class="s-seg"><span class="on">Anyone</span><span>Women</span><span>Men</span></div>
+          <button class="s-btn">Save preferences</button>
+        </div>
+      </div>
+      <figcaption>Preferences &amp; filters</figcaption>
+    </figure>
+    <!-- 3 home -->
+    <figure class="shot">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="screen screen-dark s-home">
+          <div class="app-top"><div class="app-brand"><svg><use href="#yn-mark"/></svg>YapNow</div><div class="app-avatar">R</div></div>
+          <p class="s-hello">Good evening, Riya</p>
+          <div class="app-tabs static"><span class="tab">Chat</span><span class="tab is-on">Call</span><span class="tab">Video</span></div>
+          <div class="connect-btn still"><span class="ring"></span><span class="connect-inner"><svg><use href="#i-voice"/></svg>Connect</span></div>
+          <p class="demo-limit">3 of 5 free calls left today</p>
+          <div class="s-recent"><div class="av av-c sm">KT</div><div><b>Kenji · Tokyo</b><span>Talked 12 min · Music</span></div></div>
+        </div>
+      </div>
+      <figcaption>Home: Chat, Call &amp; Video</figcaption>
+    </figure>
+    <!-- 4 call with AI -->
+    <figure class="shot">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="screen screen-grad s-call">
+          <div class="net-banner"><svg><use href="#i-wifi"/></svg>Weak network — reconnecting…</div>
+          <div class="av av-b xl">AM</div>
+          <h4>Amara</h4>
+          <p class="s-time">08:24 · Voice call</p>
+          <div class="wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="ai-tip light"><svg><use href="#i-spark"/></svg><span>AI suggestion: <b>“What's the best concert you've been to?”</b></span></div>
+          <div class="call-ctrls"><span></span><span class="end"></span><span></span></div>
+        </div>
+      </div>
+      <figcaption>Live call with AI suggestions</figcaption>
+    </figure>
+    <!-- 5 premium -->
+    <figure class="shot">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="screen screen-dark s-prem">
+          <div class="prem-badge"><svg><use href="#i-crown"/></svg></div>
+          <h4>YapNow Premium</h4>
+          <p class="s-sub">Unlock video and meet the world face to face.</p>
+          <ul class="prem-list">
+            <li><svg><use href="#i-check"/></svg>Unlimited video matches</li>
+            <li><svg><use href="#i-check"/></svg>More chats &amp; calls every day</li>
+            <li><svg><use href="#i-check"/></svg>Advanced filters</li>
+            <li><svg><use href="#i-check"/></svg>Wallet &amp; gifts</li>
+          </ul>
+          <button class="s-btn grad">Coming at launch</button>
+        </div>
+      </div>
+      <figcaption>Premium subscription</figcaption>
+    </figure>
+  </div>
+  <div class="wrap gallery-ctrl">
+    <button class="round-btn" data-dir="-1" aria-label="Previous screen">‹</button>
+    <button class="round-btn" data-dir="1" aria-label="Next screen">›</button>
+  </div>
+</section>
+
+<!-- ========================= AI + RELIABILITY ========================= -->
+<section class="ai">
+  <div class="wrap ai-grid">
+    <div class="ai-card">
+      <div class="ai-demo">
+        <div class="bubble them">I just moved to Berlin for work.</div>
+        <div class="bubble me">Oh nice! How are you finding it?</div>
+        <div class="ai-tip" id="ai-rotator"><svg><use href="#i-spark"/></svg><span id="ai-text">Try: <b>“What surprised you most about living there?”</b></span></div>
+      </div>
+      <h3>An AI that keeps the conversation going</h3>
+      <p>During calls, an optional AI assistant follows the conversation and suggests a next line when things go quiet — so talks with strangers feel natural, not awkward.</p>
+    </div>
+    <div class="ai-card dark">
+      <div class="rel-demo">
+        <div class="rel-row"><span class="rel-dot ok"></span>Connected · HD audio</div>
+        <div class="rel-row warn"><span class="rel-dot warn"></span>Slow internet detected</div>
+        <div class="rel-row"><span class="rel-dot rec"></span>Reconnecting automatically…</div>
+        <div class="rel-row"><span class="rel-dot ok"></span>Back online — keep talking</div>
+      </div>
+      <h3>Built to stay connected</h3>
+      <p>If your connection drops, YapNow tries to restore it for you and tells you why — slow internet or low bandwidth — instead of just hanging up. Calls keep running in the background.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= TRUST ========================= -->
+<section class="trust">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Safety &amp; trust</p>
+      <h2>Real people. Your rules.</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item"><svg><use href="#i-shield"/></svg><h3>Face &amp; voice verification</h3><p>Every account is verified with a short video and voice check before its first match.</p></div>
+      <div class="trust-item"><svg><use href="#i-check"/></svg><h3>Clear consent</h3><p>You approve our terms and choose which permissions to share — camera, mic, location, notifications.</p></div>
+      <div class="trust-item"><svg><use href="#i-spark"/></svg><h3>Ratings &amp; scores</h3><p>Good conversations are rewarded, and bad behaviour is spotted quickly.</p></div>
+      <div class="trust-item"><svg><use href="#i-headset"/></svg><h3>Support when you need it</h3><p>An AI help assistant answers questions instantly and hands serious issues to our team.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ARCHITECTURE ========================= -->
+<section class="built" id="built">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it's built</p>
+      <h2>Designed to scale from day one.</h2>
+      <p class="sec-sub">YapNow runs on independent microservices behind two gateways. Tap a service to see what it handles.</p>
+    </div>
+
+    <div class="arch">
+      <div class="gateways">
+        <div class="gw"><b>Operations Gateway</b><span>Internal tools, support &amp; ops dashboard</span></div>
+        <div class="gw"><b>Marketplace Gateway</b><span>Everything the app talks to</span></div>
+      </div>
+      <div class="svc-grid" id="svc-grid" role="tablist" aria-label="Services"></div>
+      <div class="svc-detail" id="svc-detail" role="tabpanel" aria-live="polite"></div>
+    </div>
+
+    <div class="lifecycle">
+      <h3>The life of a match request</h3>
+      <div class="lc-track">
+        <div class="lc-node"><span class="lc-badge init">Initiated</span><p>You tap Connect. A request ID is created and a job starts in matchmaking.</p></div>
+        <div class="lc-arrow" aria-hidden="true"></div>
+        <div class="lc-node"><span class="lc-badge resp">Responded</span><p>Two requests are paired. That pair becomes a conversation ID, handed to the realtime and AI services.</p></div>
+        <div class="lc-arrow" aria-hidden="true"></div>
+        <div class="lc-node"><span class="lc-badge end">Ended</span><p>The user cancels, or no match is found — a no-response ticket is raised so we can improve.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ROADMAP ========================= -->
+<section class="roadmap" id="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Under development</p>
+      <h2>Where we are right now.</h2>
+      <p class="sec-sub">YapNow is being built in the open. Here's our progress.</p>
+    </div>
+    <ol class="road">
+      <li class="done"><span class="road-dot"><svg><use href="#i-check"/></svg></span><div><span class="road-tag">Done</span><h3>Brand identity</h3><p>Name, logo, colours and design system.</p></div></li>
+      <li class="done"><span class="road-dot"><svg><use href="#i-check"/></svg></span><div><span class="road-tag">Done</span><h3>Product &amp; architecture design</h3><p>Features, matchmaking logic, microservices and data model.</p></div></li>
+      <li class="now"><span class="road-dot"></span><div><span class="road-tag">In progress</span><h3>Mobile app (React Native)</h3><p>Onboarding, verification, preferences and the home screen.</p></div></li>
+      <li><span class="road-dot"></span><div><span class="road-tag">Next</span><h3>Matchmaking &amp; realtime calls</h3><p>Chat, voice and video pairing with automatic reconnection.</p></div></li>
+      <li><span class="road-dot"></span><div><span class="road-tag">Then</span><h3>Private beta</h3><p>First users from the waitlist, AI conversation assistant, feedback loop.</p></div></li>
+      <li><span class="road-dot"></span><div><span class="road-tag">Launch</span><h3>Public launch</h3><p>Premium video, subscriptions, wallet and gifts.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========================= PRICING ========================= -->
+<section class="pricing">
+  <div class="wrap">
+    <div class="sec-head center">
+      <p class="eyebrow">Plans</p>
+      <h2>Start free. Go premium for video.</h2>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <p class="plan-price">₹0</p>
+        <ul><li><svg><use href="#i-check"/></svg>Chat with a daily free limit</li><li><svg><use href="#i-check"/></svg>Voice calls with a daily free limit</li><li><svg><use href="#i-check"/></svg>Location, language &amp; passion filters</li><li><svg><use href="#i-check"/></svg>Verified community</li></ul>
+      </div>
+      <div class="plan plan-prem">
+        <span class="plan-flag">Premium</span>
+        <h3>Premium</h3>
+        <p class="plan-price">Pricing at launch</p>
+        <ul><li><svg><use href="#i-check"/></svg>Everything in Free</li><li><svg><use href="#i-check"/></svg>Video calls</li><li><svg><use href="#i-check"/></svg>Higher daily limits</li><li><svg><use href="#i-check"/></svg>Wallet, gifts &amp; coupons</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= WAITLIST ========================= -->
+<section class="waitlist" id="waitlist">
+  <div class="wrap wl-inner">
+    <svg class="wl-mark" aria-hidden="true"><use href="#yn-mark-ink"/></svg>
+    <h2>Be one of the first to yap.</h2>
+    <p>Join the waitlist and we'll invite you to the private beta.</p>
+    <form class="wl-form" id="wl-form" novalidate>
+      <label for="wl-email" class="sr">Email address</label>
+      <input id="wl-email" type="email" placeholder="you@email.com" autocomplete="email" required>
+      <button class="btn btn-dark" type="submit">Join the waitlist</button>
+    </form>
+    <p class="wl-msg" id="wl-msg" role="status"></p>
+  </div>
+</section>
+
+<!-- ========================= HIRING ========================= -->
+<section class="hiring">
+  <div class="wrap hiring-inner">
+    <div>
+      <p class="eyebrow">We're hiring</p>
+      <h2>Build YapNow with us.</h2>
+      <p class="sec-sub">We're looking for a Full Stack Engineer Intern to work on our React Native app and design the backend, directly with the founders. Remote · 3 months.</p>
+    </div>
+    <a class="btn btn-light" href="#waitlist">Get in touch</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-inner">
+    <a class="brand" href="#top"><svg aria-hidden="true"><use href="#yn-mark"/></svg><span>YapNow</span></a>
+    <p>Connect. Talk. Discover.</p>
+    <p class="foot-small">© <span id="year">2026</span> YapNow. App in development.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
